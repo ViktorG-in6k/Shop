@@ -1,18 +1,25 @@
 package com.model;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 public class product extends com.model.base.Entity{
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "categori_id")
     private categories categori_id;
+
+    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @JoinTable(name = "product_order",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "order_id"))
+    private List<shopping_cart> subjectList;
+    public List<shopping_cart> getSubjectList() {
+        return subjectList;
+    }
 
     @Column
     private String name;
@@ -41,20 +48,11 @@ public class product extends com.model.base.Entity{
         this.name = name;
     }
 
-
-    public categories getCategori_id() {
-        return categori_id;
-    }
-
-    public void setCategori_id(categories categori_id) {
-        this.categori_id = categori_id;
-    }
-
     public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public categories getCategori_id() {
+        return categori_id;
     }
 }

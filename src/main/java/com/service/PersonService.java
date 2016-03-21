@@ -1,6 +1,6 @@
 package com.service;
 
-import com.dao.UserRepository;
+import com.dao.UserDAO;
 import com.model.user;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -15,14 +15,14 @@ public class PersonService {
     @Autowired
     private SessionFactory sessionFactory;
     @Autowired
-    UserRepository userRepository;
+    UserDAO userDAO;
 
     public void savePerson(user us){
-        userRepository.save(us);
+        userDAO.save(us);
     }
 
     public user getPerson(long id){
-       return userRepository.getPerson(id);
+       return userDAO.getUser(id);
     }
 
     public user get(Integer id ) {

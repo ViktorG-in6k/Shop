@@ -2,6 +2,7 @@ package com.dao;
 
 import com.model.categories;
 import com.model.product;
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,17 +15,16 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class ProductRepository {
+public class ProductDAO {
     @Autowired
-    SessionFactory sf;
+    private SessionFactory sessionFactory;
 
     public void save(product prod){
-        Session session = sf.getCurrentSession();
-        session.save(prod);
+        sessionFactory.getCurrentSession().save(prod);
     }
 
     public product getProduct(long id) {
-        Session session = sf.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("from product where id = :id");
 
         if((product) query.setLong("id",id).uniqueResult()!=null) {
@@ -37,11 +37,11 @@ public class ProductRepository {
         }
     }
 
-    public List<product> getProducts(categories categ) {
+    public List<product> getProductsFromCategory(categories categ) {
 
-        Session session = sf.openSession();
+        Session session = sessionFactory.openSession();
         Query query = session.createQuery("from product where categori_id = :categ");
-
+        System.out.println(categ);
         if(query.setEntity("categ",categ).list()!=null) {
             return (query.setEntity("categ",categ).list());
         }
@@ -51,9 +51,19 @@ public class ProductRepository {
     }
 
     public product getProductByName(String name) {
-        Session session = sf.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
 
         Query query = session.createQuery("from  product where name = :name");
         return (product) query.setString("name" ,name).uniqueResult();
+    }
+
+
+
+    protected static Logger logger = Logger.getLogger("service");
+
+    public List<product> getAllProducts() {
+        logger.debug("Retrieving all persons");
+        Session session = sessionFactory.getCurrentSession();
+        return  session.createQuery("FROM  product").list();
     }
 }

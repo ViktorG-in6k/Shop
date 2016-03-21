@@ -28,10 +28,10 @@
     <div class="panel panel-info" >
         <div class="panel-heading">
             <a href="/">Categories</a>
-
+            <c:if test="${data!=null}">
 
                 /${data.get(0).getCategori_id().getName()}
-
+            </c:if>
 
         </div>
         <div class="panel-body">

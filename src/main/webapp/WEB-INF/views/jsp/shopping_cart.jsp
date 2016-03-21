@@ -18,15 +18,12 @@
     </a>
 </nav>
 
-
-
 <div class="container">
 
     <div class="panel panel-info" >
         <div class="panel-heading glyphicon glyphicon-shopping-cart col-md-12">
            shopping cart
         </div>
-
 
         <table class="table">
             <thead>
@@ -61,11 +58,12 @@
             <td></td>
             <td></td>
             <td>$${order.getTotalPrice()}</td>
+
+            <a href="/order"><button type="button" class="btn btn-primary">Go</button></a>
         </table>
 
     </div>
     <div class="alert alert-success"  role="alert">Good</div>
-
 
     <hr>
     <footer>

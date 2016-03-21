@@ -2,19 +2,15 @@ package com.controllers;
 
 import com.Classes.DataForShoppingCart;
 import com.Classes.Order;
-import com.dao.ProductRepository;
-import com.model.product;
+import com.dao.ProductDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 
 
 @Controller
@@ -22,12 +18,15 @@ import java.util.ArrayList;
 public class SessionController {
 
     @RequestMapping(value = "/shopping_cart")
-    public String getShoppingCart() {
+    public String getShoppingCart(HttpSession session)
+    {
+        Order order = (Order) session.getAttribute("order");
+        System.out.println(order.getOrder().size());
         return "shopping_cart";
     }
 
     @Autowired
-    ProductRepository productRepository;
+    ProductDAO productDAO;
 
     @RequestMapping(value = "/add")
     public String addToOrder(HttpSession session, HttpServletRequest req, @RequestParam("product") int id) {
@@ -38,10 +37,11 @@ public class SessionController {
         else{
             order = (Order) session.getAttribute("order");
         }
-        order.addToOrder(new DataForShoppingCart(productRepository.getProduct(id),1));
+        order.addToOrder(new DataForShoppingCart(productDAO.getProduct(id),1));
 
         session.setAttribute("order",order);
         System.out.println(order.getTotalPrice());
+        System.out.println(order.getOrder().size());
         String ref  = req.getHeader("Referer");
         return "redirect:"+ref;
     }
@@ -63,6 +63,7 @@ public class SessionController {
 
             }
         }
+        System.out.println(order.getOrder().size());
         session.setAttribute("order",order);
         return "shopping_cart";
     }

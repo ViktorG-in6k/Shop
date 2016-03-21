@@ -46,6 +46,5 @@ public class Order {
         for (DataForShoppingCart d: order) {
             totalPrice = totalPrice.add(d.getPrice());
         }
-
     }
 }

@@ -39,8 +39,8 @@ public class DBConfig {
         sessionFactory.setPackagesToScan("com.model");
         sessionFactory.setHibernateProperties(this.hibernateProperties());
         return sessionFactory;
-
     }
+
     @Bean
     public  Properties hibernateProperties() {
         return new Properties() {

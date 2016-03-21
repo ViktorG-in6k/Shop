@@ -20,14 +20,13 @@
     <a href="/">Home</a>
 
     <a href="/shopping_cart" type="button"  class="btn btn-primary col-md-offset-10 btn  glyphicon glyphicon-shopping-cart">
-        <span class="badge"></span>
+        <span class="badge">${order.getOrder().size()*1}</span>
     </a>
 </nav>
 
 
 
 <div class="container">
-
 
     <div class="panel panel-info" >
         <div class="panel-heading">Categories</div>
@@ -37,13 +36,13 @@
                     <div class="form-group">
                         <label  class="control-label col-xs-2">name</label>
                         <div class="col-xs-10">
-                            <input type="text" >
+                            <input type="text" name="userName">
                         </div>
                     </div>
                     <div class="form-group">
-
+                        <label  class="control-label col-xs-2">number</label>
                         <div class="col-xs-10">
-                            <input type="text">
+                            <input type="text" name="userNumber">
                         </div>
                     </div>
                     <div class="form-group">
@@ -63,7 +62,6 @@
         </div>
     </div>
     <div class="alert alert-success"  role="alert">Good</div>
-
 
     <hr>
     <footer>

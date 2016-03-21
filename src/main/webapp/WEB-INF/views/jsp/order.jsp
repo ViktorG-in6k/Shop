@@ -20,7 +20,7 @@
     <a href="/">Home</a>
 
     <a href="/shopping_cart" type="button"  class="btn btn-primary col-md-offset-10 btn  glyphicon glyphicon-shopping-cart">
-        <span class="badge"></span>
+        <span class="badge">${order.getOrder().size()*1}</span>
     </a>
 </nav>
 
@@ -32,33 +32,33 @@
     <div class="panel panel-info" >
         <div class="panel-heading">Categories</div>
         <div class="panel-body">
-            <form class="form-horizontal">
-                <fieldset disabled="disabled">
-                    <div class="form-group">
-                        <label for="inputEmail" class="control-label col-xs-2">Email</label>
-                        <div class="col-xs-10">
-                            <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+            <form class="form-horizontal" action="/create">
+
+                <div class="form-group">
+                    <label  class="control-label col-xs-2">name</label>
+                    <div class="col-xs-10">
+                        <input type="text" name="userName">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label  class="control-label col-xs-2">number</label>
+                    <div class="col-xs-10">
+                        <input type="text" name="userNumber">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-offset-2 col-xs-10">
+                        <div class="checkbox">
+                            <label><input type="checkbox"> Save</label>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputPassword" class="control-label col-xs-2">Пароль</label>
-                        <div class="col-xs-10">
-                            <input type="password" class="form-control" id="inputPassword" placeholder="Пароль">
-                        </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-offset-2 col-xs-10">
+                        <button type="submit" class="btn btn-primary">Go</button>
                     </div>
-                    <div class="form-group">
-                        <div class="col-xs-offset-2 col-xs-10">
-                            <div class="checkbox">
-                                <label><input type="checkbox"> Запомнить</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-xs-offset-2 col-xs-10">
-                            <button type="submit" class="btn btn-primary">Войти</button>
-                        </div>
-                    </div>
-                </fieldset>
+                </div>
+
             </form>
         </div>
     </div>
