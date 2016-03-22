@@ -1,14 +1,15 @@
-package com.service;
+package com.serviceLayer.implementations;
 
-import com.dao.CategoryDAO;
+import com.dataLayer.dao.CategoryDAO;
 import com.model.categories;
+import com.serviceLayer.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class CategoryService {
+public class CategoryServiceImpl implements CategoryService{
 
     @Autowired
     CategoryDAO categoryDAO;

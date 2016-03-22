@@ -2,8 +2,8 @@ package com.controllers;
 
 import com.model.categories;
 import com.model.product;
-import com.service.CategoryService;
-import com.service.ProductService;
+import com.serviceLayer.service.CategoryService;
+import com.serviceLayer.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,8 +19,6 @@ public class MainController {
     CategoryService categoryService;
     @Autowired
     ProductService productService;
-
-
 
     @RequestMapping(value = "/")
     public String getMain(HttpSession session) {

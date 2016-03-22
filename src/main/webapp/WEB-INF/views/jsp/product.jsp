@@ -27,7 +27,7 @@
     <div class="panel panel-info" >
         <div class="panel-heading">
             <a href="/">Categories</a>
-            <a href="/${product.getCategori_id().getName()}">/${product.getCategori_id().getName()}</a>
+            <a href="/${product.getCategory_id().getName()}">/${product.getCategory_id().getName()}</a>
             /${product.getName()}</div>
         <div class="panel-body">
                 <div class="col-md-12">

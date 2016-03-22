@@ -1,21 +1,22 @@
-package com.service;
+package com.serviceLayer.implementations;
 
-import com.dao.ProductDAO;
+import com.dataLayer.dao.ProductDAO;
 import com.model.categories;
 import com.model.product;
+import com.serviceLayer.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ProductService {
+public class ProductServiceImpl implements ProductService{
 
     @Autowired
     ProductDAO productDAO;
 
-    public void saveProduct(product us){
-        productDAO.save(us);
+    public void saveProduct(product p){
+        productDAO.save(p);
     }
 
     public product getProduct(long id){

@@ -1,12 +1,14 @@
 package com.controllers;
 
+import com.Classes.DataForShoppingCart;
 import com.Classes.Order;
 import com.model.categories;
 import com.model.product;
 import com.model.shopping_cart;
-import com.service.CategoryService;
-import com.service.Shopping_CartService;
-import com.service.UserService;
+import com.model.user;
+import com.serviceLayer.service.CategoryService;
+import com.serviceLayer.service.Shopping_CartService;
+import com.serviceLayer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,11 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-/**
- * Created by avatarion on 3/21/16.
- */
 @Controller
 public class OrderController {
     @Autowired
@@ -30,6 +30,7 @@ public class OrderController {
 
     @RequestMapping(value = "/order")
     public String getNew() {
+
         return "order";
     }
 
@@ -38,7 +39,21 @@ public class OrderController {
         String name = req.getParameter("userName");
         String number = req.getParameter("userNumber");
 
+        userService.saveUser(new user(name,number));
         Order order = (Order) session.getAttribute("order");
+        //ArrayList<DataForShoppingCart> shopping_carts = order.getOrder();
+        List<product>products = new ArrayList<product>();
+        ArrayList<DataForShoppingCart> shopping_carts = order.getOrder();
+        for (DataForShoppingCart s: shopping_carts) {
+            for(int i = 0;i<s.getCountOfProducts();i++){
+                System.out.println(s.getProd().getName());
+                products.add(s.getProd());
+            }
+        }
+        java.util.Date date = new Date();
+        shopping_cartService.saveShopping_Cart(new shopping_cart(number, products, new java.sql.Timestamp(date.getTime())));
+        System.out.println(shopping_carts);
+
         System.out.println(order.getOrder().size());
         session.removeAttribute("order");
 
@@ -53,23 +68,15 @@ public class OrderController {
     {
         List<shopping_cart> userList = shopping_cartService.getAllShoppingCarts();
         for (shopping_cart u: userList) {
-            product[] arr =   u.getProductsList().toArray(new product[u.getProductsList().size()]);
+            List<product> arr =   u.getProducts();
             for (product a: arr){
-                System.out.println(a.getName()+" ");
+                System.out.println(a.getName()+"c ");
             }
-            System.out.println(u.getId()+" ");
+            System.out.println(u.getId()+"b ");
+            System.out.println(arr.size()+"l ");
         }
+        System.out.println(userList.size()+"a ");
         return "order";
     }
 
-//    @RequestMapping(value = "/allOrders")
-//    public String getOrders()
-//    {
-//        List<user> userList = .getUsers();
-//        for (user u: userList) {
-//            System.out.print(u.getId()+" ");
-//            System.out.println(u.getName());
-//        }
-//        return "order";
-//    }
 }

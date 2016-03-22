@@ -1,5 +1,6 @@
-package com.dao;
+package com.dataLayer.implementations;
 
+import com.dataLayer.dao.ProductDAO;
 import com.model.categories;
 import com.model.product;
 import org.apache.log4j.Logger;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class ProductDAO {
+public class ProductDAOImpl implements ProductDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -40,7 +41,7 @@ public class ProductDAO {
     public List<product> getProductsFromCategory(categories categ) {
 
         Session session = sessionFactory.openSession();
-        Query query = session.createQuery("from product where categori_id = :categ");
+        Query query = session.createQuery("from product where category_id = :categ");
         System.out.println(categ);
         if(query.setEntity("categ",categ).list()!=null) {
             return (query.setEntity("categ",categ).list());

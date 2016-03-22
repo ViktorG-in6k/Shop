@@ -1,5 +1,6 @@
-package com.dao;
+package com.dataLayer.implementations;
 
+import com.dataLayer.dao.UserDAO;
 import com.model.user;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
@@ -13,13 +14,13 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class UserDAO {
+public class UserDAOImpl implements UserDAO {
 
     @Autowired
     private SessionFactory sessionFactory;
 
     public void save(user us){
-        Session session =sessionFactory.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         session.save(us);
     }
 
@@ -30,8 +31,18 @@ public class UserDAO {
             return (user) query.setLong("id", id).uniqueResult();
         }
         else{
-            user k = new user("null");
-            return k;
+            return null;
+        }
+    }
+
+    public user getUser(String number) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from user where number = :number");
+        if((user) query.setString("number",number).uniqueResult()!=null) {
+            return (user) query.setString("number", number).uniqueResult();
+        }
+        else{
+            return null;
         }
     }
 
@@ -43,7 +54,7 @@ public class UserDAO {
 
     public List<user> getUsers() {
 
-        Session session = sessionFactory.openSession();
+        Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("from user");
 
         if(query.list()!=null) {
@@ -61,5 +72,7 @@ public class UserDAO {
         Session session = sessionFactory.getCurrentSession();
         return  session.createQuery("FROM  user").list();
     }
+
+
 
 }

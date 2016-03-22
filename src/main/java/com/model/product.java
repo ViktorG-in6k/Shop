@@ -3,14 +3,15 @@ package com.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class product extends com.model.base.Entity{
 
     @ManyToOne
-    @JoinColumn(name = "categori_id")
-    private categories categori_id;
+    @JoinColumn(name = "category_id")
+    private categories category_id;
 
     @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinTable(name = "product_order",
@@ -34,8 +35,8 @@ public class product extends com.model.base.Entity{
         this.name = name;
     }
 
-    public product(categories categori_id, String name, BigDecimal price){
-        this.categori_id = categori_id;
+    public product(categories category_id, String name, BigDecimal price){
+        this.category_id = category_id;
         this.name = name;
         this.price = price;
     }
@@ -52,7 +53,7 @@ public class product extends com.model.base.Entity{
         return price;
     }
 
-    public categories getCategori_id() {
-        return categori_id;
+    public categories getCategory_id() {
+        return category_id;
     }
 }

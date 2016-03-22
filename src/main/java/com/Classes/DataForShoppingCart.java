@@ -26,8 +26,6 @@ public class DataForShoppingCart {
     }
 
     public void setCountOfProducts(int countOfProducts) {
-
-
         this.countOfProducts = countOfProducts;
         total();
     }

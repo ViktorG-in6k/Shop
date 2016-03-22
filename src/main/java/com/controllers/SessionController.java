@@ -2,7 +2,7 @@ package com.controllers;
 
 import com.Classes.DataForShoppingCart;
 import com.Classes.Order;
-import com.dao.ProductDAO;
+import com.serviceLayer.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +16,8 @@ import javax.servlet.http.HttpSession;
 @Controller
 @SessionAttributes(value = "product")
 public class SessionController {
+    @Autowired
+    ProductService productService;
 
     @RequestMapping(value = "/shopping_cart")
     public String getShoppingCart(HttpSession session)
@@ -24,9 +26,6 @@ public class SessionController {
         System.out.println(order.getOrder().size());
         return "shopping_cart";
     }
-
-    @Autowired
-    ProductDAO productDAO;
 
     @RequestMapping(value = "/add")
     public String addToOrder(HttpSession session, HttpServletRequest req, @RequestParam("product") int id) {
@@ -37,7 +36,7 @@ public class SessionController {
         else{
             order = (Order) session.getAttribute("order");
         }
-        order.addToOrder(new DataForShoppingCart(productDAO.getProduct(id),1));
+        order.addToOrder(new DataForShoppingCart(productService.getProduct(id),1));
 
         session.setAttribute("order",order);
         System.out.println(order.getTotalPrice());

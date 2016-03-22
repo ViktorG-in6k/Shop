@@ -2,45 +2,59 @@ package com.model;
 
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
 @Entity
 public class shopping_cart extends com.model.base.Entity{
 
-  //  private ArrayList<product> prod = new ArrayList<product>();
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(name = "product_order",
-//            //foreign key for orderEntity in product_order table
-//            joinColumns = @JoinColumn(name = "order_id"),
-//            //foreign key for other side - EmployeeEntity in employee_car table
-//            inverseJoinColumns = @JoinColumn(name = "product_id"))
-//    public ArrayList<product> getProductsFromCategory () {
-//        return prod;
-//    }
+
+
+
 
     @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinTable(name = "product_order",
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private List<product> professionList;
+    private List<product> products;
 
-    public List<product> getProductsList() {
-        return professionList;
+    public List<product> getProducts() {
+        return products;
     }
 
     @Column
-    private int user_id;
+    private Timestamp date;
+
+    @Column
+    private String user_number;
 
     @Override
     public String toString() {
         return "shopping_cart{" +
-                "professionList=" + professionList.toString() +
-                ", user_id=" + user_id +
+                "professionList=" + products.toString() +
+
                 '}';
     }
 
     public shopping_cart(){
+    }
+    public shopping_cart(String user_number,List<product>products, java.util.Date date){
+         this.date = new Timestamp(date.getTime());;
+        this.user_number = user_number;
+        this.products = products;
+    }
+
+
+    public String getUser_number() {
+        return user_number;
+    }
+
+    public void setUser_number(String user_number) {
+        this.user_number = user_number;
     }
 
 

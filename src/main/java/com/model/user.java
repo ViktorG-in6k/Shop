@@ -1,13 +1,23 @@
 package com.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
-public class user extends com.model.base.Entity {
+public class user{
+
+
+
 
     @Column
     private String name;
+
+    @Id
+    private String number;
+
+    public user(String name,String number) {
+        this.name = name;
+        this.number = number;
+    }
 
     public user(String name) {
         this.name = name;
@@ -24,4 +34,12 @@ public class user extends com.model.base.Entity {
         this.name = name;
     }
 
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
 }

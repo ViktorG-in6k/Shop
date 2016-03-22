@@ -1,5 +1,6 @@
-package com.dao;
+package com.dataLayer.implementations;
 
+import com.dataLayer.dao.CategoryDAO;
 import com.model.categories;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
@@ -14,10 +15,11 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class CategoryDAO {
+public class CategoryDAOImpl implements CategoryDAO {
 
     @Autowired
     private SessionFactory sessionFactory;
+
     public void save(categories category){
         Session session = sessionFactory.getCurrentSession();
         session.save(category);

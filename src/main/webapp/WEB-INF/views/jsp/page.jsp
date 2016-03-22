@@ -30,7 +30,7 @@
             <a href="/">Categories</a>
             <c:if test="${data!=null}">
 
-                /${data.get(0).getCategori_id().getName()}
+                /${data.get(0).getCategory_id().getName()}
             </c:if>
 
         </div>
@@ -38,7 +38,7 @@
             <c:forEach items="${data}" var="product">
                 <div class="col-md-4">
                     <p>
-                        <a class="btn btn-warning btn-lg" href="/${product.getCategori_id().getName()}/${product.getName()}" role="button">
+                        <a class="btn btn-warning btn-lg" href="/${product.getCategory_id().getName()}/${product.getName()}" role="button">
                             <img src="http://placehold.it/350x150" class="img-responsive"  width="304" height="236">${product.getName()}: $${product.getPrice()}
                         </a>
                     </p>
